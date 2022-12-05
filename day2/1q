@@ -1,0 +1,25 @@
+const fs = require('fs')
+const { readFileSync } = fs;
+const compose = (...fns) => fns.reduce((a, e) => x => a(e(x)))
+const log = x => console.log(x)
+const toString = x => x.toString()
+const splitLines = lines => lines.split('\n')
+const tail = n => xs => xs.slice(xs.length - n - 1, n)
+const id = x => x
+const juxt = (...fns) => x => fns.map(f => f(x))
+const slice = (x, y) => z => z.slice(x, y)
+const split = splitter => xs => xs.split(splitter)
+const map = fn => xs => xs.map(fn)
+const reduce = reducer => seed => arr => {
+  if (arr.length == 0) {
+    return seed
+  }
+  return reduce(reducer)(reducer(seed, arr[0]))(arr.slice(1))
+}
+const readInput = () => readFileSync('./input')
+
+compose(log, 
+  xs => xs.slice(0, -1),
+  splitLines,
+  toString,
+  readInput)()

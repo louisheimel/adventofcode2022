@@ -1,0 +1,20 @@
+const fs = require('fs')
+const { readFileSync } = fs;
+const compose = (...fns) => fns.reduce((a, e) => x => a(e(x)))
+const log = x => console.log(x)
+const toString = x => x.toString()
+const splitLines = lines => lines.split('\n')
+compose(
+
+
+
+
+
+
+
+  log,
+  x => x.slice(0, 12),
+  splitLines,
+  toString,
+  readFileSync
+)('./input')
